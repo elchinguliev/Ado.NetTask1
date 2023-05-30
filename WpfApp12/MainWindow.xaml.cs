@@ -77,20 +77,20 @@ namespace WpfApp12
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
+         
 
             using (SqlConnection conn = new SqlConnection())
             {
                 cs = ConfigurationManager.ConnectionStrings["myconn"].ConnectionString;
                 conn.ConnectionString = cs;
                 conn.Open();
-                string deleteQuery = "DELETE FROM Authors WHERE  Id = @id  AND Firstname = @firstName AND Lastname = @lastName";
+                string deleteQuery = "DELETE FROM Authors WHERE  Id = @id  ";
 
                 using (SqlCommand command = new SqlCommand(deleteQuery, conn))
                 {
                     command.Parameters.AddWithValue("@id", idTxt.Text);
-                    command.Parameters.AddWithValue("@firstName", firstNameTxt.Text);
-                    command.Parameters.AddWithValue("@lastName", lastNameTxt.Text);
-                    int rowsAffected = command.ExecuteNonQuery();
+
+                   command.ExecuteNonQuery();
                 }
                 conn.Close();
             }
@@ -98,6 +98,7 @@ namespace WpfApp12
             idTxt.Clear();
             firstNameTxt.Clear();
             lastNameTxt.Clear();
+
         }
 
         private void updateBtn_Click(object sender, RoutedEventArgs e)

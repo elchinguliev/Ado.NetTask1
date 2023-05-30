@@ -25,7 +25,7 @@ namespace WpfApp12
     {
 
         SqlConnection conn;
-        string cs = "";
+        string connectinString = "";
         public MainWindow()
         {
             InitializeComponent();
@@ -36,8 +36,8 @@ namespace WpfApp12
         {
             using (SqlConnection conn = new SqlConnection())
             {
-                cs = ConfigurationManager.ConnectionStrings["myconn"].ConnectionString;
-                conn.ConnectionString = cs;
+                connectinString = ConfigurationManager.ConnectionStrings["myconn"].ConnectionString;
+                conn.ConnectionString = connectinString;
                 conn.Open();
                 string insertQuery = "INSERT INTO Authors (Id,Firstname, Lastname) VALUES (@Id,@FirstName, @LastName)";
                 using (SqlCommand command = new SqlCommand(insertQuery, conn))
@@ -61,11 +61,11 @@ namespace WpfApp12
             DataTable table;
             SqlDataReader reader;
             conn = new SqlConnection();
-            cs = ConfigurationManager.ConnectionStrings["myconn"].ConnectionString;
+            connectinString = ConfigurationManager.ConnectionStrings["myconn"].ConnectionString;
             using (conn = new SqlConnection())
             {
                 var da = new SqlDataAdapter();
-                conn.ConnectionString = cs;
+                conn.ConnectionString = connectinString;
                 conn.Open();
                 var set = new DataSet();
                 SqlCommand command = new SqlCommand("SELECT * FROM Authors", conn);
@@ -81,8 +81,8 @@ namespace WpfApp12
 
             using (SqlConnection conn = new SqlConnection())
             {
-                cs = ConfigurationManager.ConnectionStrings["myconn"].ConnectionString;
-                conn.ConnectionString = cs;
+                connectinString = ConfigurationManager.ConnectionStrings["myconn"].ConnectionString;
+                conn.ConnectionString = connectinString;
                 conn.Open();
                 string deleteQuery = "DELETE FROM Authors WHERE  Id = @id  ";
 
@@ -106,7 +106,7 @@ namespace WpfApp12
             DataSet set = new DataSet();
             using (conn = new SqlConnection())
             {
-                conn.ConnectionString = cs;
+                conn.ConnectionString = connectinString;
                 conn.Open();
 
                 var command = new SqlCommand("UPDATE Authors SET Firstname=@firstName WHERE Id=@id", conn);
